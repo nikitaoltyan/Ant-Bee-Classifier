@@ -1,4 +1,5 @@
 from tensorflow import keras
+import tensorflow as tf
 
 def make_model(input_shape):
     model = keras.Sequential([
@@ -11,10 +12,17 @@ def make_model(input_shape):
         keras.layers.Dense(1, activation='sigmoid')
     ])
 
+    metrics = [
+        tf.BinaryAccuracy(),
+        tf.Precision(),
+        tf.Recall()
+    ]
+
+    # Compile model
     model.compile(
         optimizer='adam',
-        loss='binary_crossentropy',
-        metrics=['accuracy']
+        metrics=metrics,
+        loss='binary_crossentropy'
     )
 
     return model
