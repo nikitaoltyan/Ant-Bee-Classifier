@@ -1,7 +1,7 @@
 import click
 from model import *
 from process_data import *
-
+from visualize import *
 from model import make_model
 
 @click.command()
@@ -9,7 +9,7 @@ from model import make_model
 @click.option('--epochs', '-e', type=int, default=5, help='Epochs of training')
 @click.option('--val_split', '-v', type=float, default=0.1, help='Split of data for validation during training')
 @click.option('--verbose', '-vb', type=int, default=0, help='Visualization flag for training')
-@click.option('--history', '-h', type=bool, default=False, help='Training history flag for visualize & save result')
+@click.option('--history', '-h', type=bool, default=False, help='Training history flag for visualizing metrics')
 def train(batch_size, epochs, val_split, verbose, history):
     X_train, y_train = prepare_train_data()
     model = make_model(X_train.shape[1])
@@ -17,14 +17,14 @@ def train(batch_size, epochs, val_split, verbose, history):
     # Fitting
     train_history = model.fit(X_train, y_train, batch_size=batch_size, epochs=epochs, validation_split=val_split, verbose=verbose)
 
-    # Save history data
-    if history:
-        pass
-        # TODO
-        # Visualize & save history data. Use utils.
+    # Define number for correct run save
+    number_of_runs = len(os.listdir('../runs'))
+
+    # Save history data and visualize if nesesary
+    plot_training_data(train_history, number_of_runs, history)
 
     # Save the trained model
-    model.save('trained_model.h5')
+    model.save(f'../runs/run_{number_of_runs}/trained_model.h5')
 
 
 if __name__ == '__train__':
