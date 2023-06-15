@@ -1,5 +1,6 @@
+# Nikita Oltyan
 from tensorflow import keras
-import tensorflow as tf
+from tensorflow.keras.metrics import *
 
 def make_model(input_shape):
     model = keras.Sequential([
@@ -13,9 +14,9 @@ def make_model(input_shape):
     ])
 
     metrics = [
-        tf.BinaryAccuracy(),
-        tf.Precision(),
-        tf.Recall()
+        BinaryAccuracy(),
+        Precision(),
+        Recall()
     ]
 
     # Compile model
