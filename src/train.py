@@ -1,5 +1,6 @@
 # Nikita Oltyan
 import click
+import os
 from model import *
 from process_data import *
 from visualize import *
@@ -25,7 +26,11 @@ def train(batch_size, epochs, val_split, verbose, history):
         verbose=verbose)
 
     # Define number for correct run save
+    if not os.path.exists('../runs'):
+        os.makedirs('../runs')
     number_of_runs = len(os.listdir('../runs'))
+    if not os.path.exists(f'../runs/run_{number_of_runs}'):
+        os.makedirs(f'../runs/run_{number_of_runs}')
 
     # Save history data and visualize if nesesary
     plot_training_data(train_history, number_of_runs, history)
