@@ -2,10 +2,10 @@
 from keras.preprocessing.image import ImageDataGenerator
 
 
-def prepare_train_data(IMG_SHAPE=(180, 180), BATCH_SIZE=32,
-                       VAL_SPLIT=0.2, RESCALE=1/255, ROTATION_RANGE=8,
-                       WIDTH_SHIFT_RANGE=0.15, HEIGHT_SHIFT_RANGE=0.15,
-                       ZOOM_RANGE=0.15, BRIGHTNESS_RANGE=(0.7, 1.3),
+def prepare_train_data(IMG_SHAPE=(180,180), BATCH_SIZE=32,
+                       VAL_SPLIT=0.2, RESCALE=1/255, ROTATION_RANGE=5,
+                       WIDTH_SHIFT_RANGE=0.1, HEIGHT_SHIFT_RANGE=0.1,
+                       ZOOM_RANGE=0.1, BRIGHTNESS_RANGE=(0.8, 1.2),
                        HORIZONTAL_FLIP=True):
 
     train_datagen = ImageDataGenerator(
@@ -38,9 +38,22 @@ def prepare_train_data(IMG_SHAPE=(180, 180), BATCH_SIZE=32,
 
     data_shape = (IMG_SHAPE[0], IMG_SHAPE[1], 3)
 
-
     return train_generator, val_generator, data_shape
 
 
-def prepare_test_data():
-    return None, None
+def prepare_test_data(IMG_SHAPE=(180,180), RESCALE=1/255, BATCH_SIZE=1):
+    test_datagen = ImageDataGenerator(
+        rescale=RESCALE
+    )
+
+    # Generators
+    test_generator = test_datagen.flow_from_directory(
+        '../data/raw/hymenoptera_data/val',
+        target_size=IMG_SHAPE,
+        batch_size=BATCH_SIZE,
+        class_mode='categorical'
+    )
+
+    data_shape = (IMG_SHAPE[0], IMG_SHAPE[1], 3)
+
+    return test_generator, data_shape

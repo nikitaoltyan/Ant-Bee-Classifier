@@ -18,6 +18,8 @@ def train(batch_size, epochs, val_split, verbose, history):
 
     model = make_model(data_shape)
 
+    print(model.summary())
+
     # Fitting
     train_history = model.fit(
         train_generator,
