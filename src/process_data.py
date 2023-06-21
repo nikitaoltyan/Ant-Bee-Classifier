@@ -2,7 +2,7 @@
 from keras.preprocessing.image import ImageDataGenerator
 
 
-def prepare_train_data(IMG_SHAPE=(64, 128), BATCH_SIZE=32,
+def prepare_train_data(IMG_SHAPE=(180, 180), BATCH_SIZE=32,
                        VAL_SPLIT=0.2, RESCALE=1/255, ROTATION_RANGE=8,
                        WIDTH_SHIFT_RANGE=0.15, HEIGHT_SHIFT_RANGE=0.15,
                        ZOOM_RANGE=0.15, BRIGHTNESS_RANGE=(0.7, 1.3),

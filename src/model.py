@@ -13,7 +13,7 @@ def make_model(input_shape):
         keras.layers.Flatten(),
         keras.layers.Dense(256, activation='relu'),
         keras.layers.Dense(128, activation='linear'),
-        keras.layers.Dense(2, activation='sigmoid')
+        keras.layers.Dense(2, activation='softmax')
     ])
 
     metrics = [
@@ -26,7 +26,7 @@ def make_model(input_shape):
     model.compile(
         optimizer='adam',
         metrics=metrics,
-        loss='binary_crossentropy'
+        loss='categorical_crossentropy'
     )
 
     return model
